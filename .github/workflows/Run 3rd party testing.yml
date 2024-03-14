@@ -1,0 +1,23 @@
+name: Run 3rd party testing
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "devint" ]
+  pull_request_target:
+    branches: [ "devint" ]
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  job_1:
+    name: Run 3rd party testing
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Do nothing
+        run: echo "This job does nothing, but it passes!"
