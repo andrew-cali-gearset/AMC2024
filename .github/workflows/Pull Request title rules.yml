@@ -1,0 +1,39 @@
+name: Pull request naming convention rules
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "devint" ]
+  pull_request_target:
+    branches: [ "devint" ]
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  job_1:
+    name: PR title is correct?
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: PR title is correct?
+        run: |
+          # Get the PR title
+          PR_TITLE=$(jq -r '.pull_request.title' $GITHUB_EVENT_PATH)
+          
+          # Define the blocked pattern for PR descriptions
+          BLOCKED_PATTERN='Toby.*'
+          
+          # Check if PR description matches the expected pattern
+          if [[ $PR_TITLE =~ $BLOCKED_PATTERN ]]; then
+            echo "Invalid PR title. Please name correctly."
+            exit 1
+          fi
