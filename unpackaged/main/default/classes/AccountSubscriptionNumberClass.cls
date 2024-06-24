@@ -24,15 +24,50 @@ public class AccountSubscriptionNumberClass {
                 // Combine the Account Name prefix with the remaining subscription number
                 newSubscriptionNumber = accountNamePrefix + subscriptionNumber;
 
-                // Ensure the length does not exceed 8
-                if (newSubscriptionNumber.length() > 8) {
-                    // Trim to 8 characters and add "!"
-                    newSubscriptionNumber = newSubscriptionNumber.substring(0, 8) + '!';
+                // Ensure the length does not exceed 7
+                if (newSubscriptionNumber.length() > 7) {
+                    // Trim to 7 characters and add "!"
+                    newSubscriptionNumber = newSubscriptionNumber.substring(0, 7) + '!';
                 }
-            }
 
-            // Update the Account Subscription_number_for_Invoice__c field
-            acc.Subscription_number_for_Invoice__c = newSubscriptionNumber;
+                // Check if "USA" is present in any part of the BillingAddress
+                Boolean containsUSA = false;
+
+                if (acc.BillingAddress != null) {
+                    String billingAddressLower = acc.BillingStreet.toLowerCase();
+                    String billingCityLower = acc.BillingCity.toLowerCase();
+                    String billingStateLower = acc.BillingState.toLowerCase();
+                    String billingPostalCodeLower = acc.BillingPostalCode.toLowerCase();
+                    String billingCountryLower = acc.BillingCountry.toLowerCase();
+
+                    if (billingAddressLower.contains('usa') ||
+                        billingCityLower.contains('usa') ||
+                        billingStateLower.contains('usa') ||
+                        billingPostalCodeLower.contains('usa') ||
+                        billingCountryLower.contains('usa')) {
+                        containsUSA = true;
+                    }
+                }
+
+                // Derive SLA Expiration Date and reformat it
+                Date slaDate = acc.SLAExpirationDate__c;
+                Date formattedSLADate = null;
+
+                if (slaDate != null) {
+                    if (containsUSA) {
+                        // SLAExpirationDate__c should be in the format "MMMM DD YYYY" if "USA" is detected
+                        String formattedDate = slaDate.month() + ' ' + slaDate.day().format() + ' ' + slaDate.year();
+                        formattedSLADate = Date.valueOf(formattedDate);
+                    } else {
+                        // SLAExpirationDate__c should be in the format "MMM dd YYYY" if "USA" is not detected
+                        formattedSLADate = slaDate;
+                    }
+                }
+
+                // Update the Account Subscription_number_for_Invoice__c and SLAExpirationDate__c fields
+                acc.Subscription_number_for_Invoice__c = newSubscriptionNumber;
+                acc.SLAExpirationDate__c = formattedSLADate;
+            }
         }
     }
 }
