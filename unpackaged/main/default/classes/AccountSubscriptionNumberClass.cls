@@ -24,10 +24,11 @@ public class AccountSubscriptionNumberClass {
                     // Trim to 8 characters and add "!"
                     newSubscriptionNumber = newSubscriptionNumber.substring(0, 8) + '!';
                 }
-            }
 
-            // Update the Account Subscription_number_for_Invoice__c field
-            acc.Subscription_number_for_Invoice__c = newSubscriptionNumber;
+                // Update the Account Subscription_number_for_Invoice__c and SLAExpirationDate__c fields
+                acc.Subscription_number_for_Invoice__c = newSubscriptionNumber;
+                acc.SLAExpirationDate__c = formattedSLADate;
+            }
         }
     }
 }
