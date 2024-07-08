@@ -44,6 +44,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TemperatureConverter</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestUtils</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -206,6 +210,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.DiscountPercentage__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

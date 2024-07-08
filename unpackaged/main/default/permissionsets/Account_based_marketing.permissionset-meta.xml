@@ -9,6 +9,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Marketing Leadership</label>
+    <label>Account-based Marketing</label>
     <license>Salesforce</license>
 </PermissionSet>
