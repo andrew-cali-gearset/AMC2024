@@ -1,4 +1,4 @@
-public class AccountSubscriptionNumberClass {
+public class AccountQuoteID {
     public static void transformAccounts(List<Account> accounts) {
         for (Account acc : accounts) {
             // Check if the Active__c field is set to "Yes"
@@ -24,10 +24,10 @@ public class AccountSubscriptionNumberClass {
                 // Combine the Account Name prefix with the remaining subscription number
                 newSubscriptionNumber = accountNamePrefix + subscriptionNumber;
 
-                // Ensure the length does not exceed 7
-                if (newSubscriptionNumber.length() > 7) {
-                    // Trim to 7 characters and add "!"
-                    newSubscriptionNumber = newSubscriptionNumber.substring(0, 7) + '!';
+                // Ensure the length does not exceed 10
+                if (newSubscriptionNumber.length() > 10) {
+                    // Trim to 10 characters and add "!"
+                    newSubscriptionNumber = newSubscriptionNumber.substring(0, 10) + '!';
                 }
 
                 // Check if "USA" is present in any part of the BillingAddress
