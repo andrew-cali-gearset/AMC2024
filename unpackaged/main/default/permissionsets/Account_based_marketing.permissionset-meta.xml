@@ -10,6 +10,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Customer Success out-of-hours support</label>
+    <label>Account-based Marketing</label>
     <license>Salesforce</license>
 </PermissionSet>
